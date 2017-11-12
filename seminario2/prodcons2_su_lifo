@@ -1,0 +1,5 @@
+Función escribir: Se comprueba que quede hueco en el vector para escribir si no se hace un wait sobre la cola libres. Se escribe el dato y se aumenta la variable de primera_libre
+A continuación se le da paso a una hebra lectora antes de salir con el signal sobre la cola ocupadas.
+Función leer: Se comprueba que la variable de escritura y lectura sea mayor que 0, si no se cumple se manda a la cola de ocupadas con un wait.
+Si hay algun dato que leer se reduce en uno la variable primera_libre y se lee el dato. Después se libera de la cola de libres con signal a una
+hebra consumidora.

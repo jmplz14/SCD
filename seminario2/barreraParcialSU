@@ -1,0 +1,4 @@
+Al llegar la ultima que no cumple el if pasa a la parte del for. Entra al cuerpo del for y libera a una hebra bloqueada.
+Esta hebra liberada entra en la siguiente linea de el wait que la bloqueo. Una vez liberada vuelve a entrar la que hizo signal.
+Que vuelve a comprobar la condición del bucle y vuelve a entrar a liberar otra hebra. Cuando no cumple la condición del for esta sale del for y se muestra el
+mensaje de que sale la hebra.

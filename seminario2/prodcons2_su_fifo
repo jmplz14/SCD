@@ -1,0 +1,4 @@
+función leer: Se comprueba que num_leidas sea igual que el num_producidas en ese caso se bloquea la hebra con wait en la cola de ocupadas. Si no es este el caso se
+lee el dato con la operacion modulo de num_celdas_total y se aumenta num_leidas despues. Despues se hace signal en la cola de libres para sacar a un productor si lo hay.
+función escribir: Se comprueba que num_producidas - num_leidas sea igual que el num_celdas_total en ese caso se bloquea la hebra con wait en la cola de libres. Si no es este el caso se
+guarda el dato con la operacion modulo de num_celdas_total y se aumenta num_producidas despues. Despues se hace signal en la cola de libres para sacar a un consumidor si lo hay. 

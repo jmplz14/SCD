@@ -17,9 +17,9 @@ unsigned  cont_prod[num_items] = {0}, // contadores de verificación: producidos
           cont_cons[num_items] = {0}; // contadores de verificación: consumidos
 int vec[tam_vec];
 Semaphore puede_escribir = tam_vec,
-		  puede_leer = 0,
-		  contador = 1;
-int posicion_actual = 0;
+		  puede_leer = 0;
+int primera_ocupada = 0 , primera_libre = 0;
+		  
 
 
 //**********************************************************************
@@ -87,20 +87,15 @@ void test_contadores()
 void  funcion_hebra_productora()
 {
 	int a;
-	
-	for( int i = 0; i < num_items; i++){
-		a = producir_dato();
-		
-		sem_wait(puede_escribir);
-		sem_wait(contador);
-		vec[posicion_actual] = a;
-		posicion_actual++;
-		sem_signal(contador);
-		sem_signal(puede_leer);
-		
-	}
-	
-	
+   for( unsigned i = 0 ; i < num_items ; i++ )
+   {
+      a = producir_dato() ;
+      sem_wait(puede_escribir);
+	  vec[primera_libre] = a;
+	  primera_libre = (primera_libre + 1) % tam_vec;
+	  sem_signal(puede_leer);
+      // completar ........
+   }
 }
 
 //----------------------------------------------------------------------
@@ -108,17 +103,15 @@ void  funcion_hebra_productora()
 void funcion_hebra_consumidora()
 {
 	int b;
-	for( int i = 0; i < num_items; i++){
-		
-		sem_wait(puede_leer);
-		sem_wait(contador);
-		posicion_actual--;
-		b = vec[posicion_actual];
-		sem_signal(contador);
-		sem_signal(puede_escribir);
-		consumir_dato(b);
-	}
-   
+   for( unsigned i = 0 ; i < num_items ; i++ )
+   {
+      
+      sem_wait(puede_leer);
+	  b = vec[primera_ocupada];
+	  primera_ocupada = (primera_ocupada + 1) % tam_vec;
+	  sem_signal(puede_escribir);
+      consumir_dato( b ) ;
+    }
 }
 //----------------------------------------------------------------------
 

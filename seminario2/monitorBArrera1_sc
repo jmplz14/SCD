@@ -1,0 +1,5 @@
+1.- Al ser la ultima no cumple la condición del if y por tanto entra a la parte del else donde libera a las hebras
+en la cola y muestra su mensaje de salida antes de dejar la exclusión mutua de la función libre.
+2.- 
+3.- El constructor de un mismo objeto de la clase no puede ser ejecutado por dos hebras al mismo tiempo.
+notify_all: La salida de las hebras respetan el orden en que llegaron al la cola.
