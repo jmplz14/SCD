@@ -49,7 +49,7 @@ void funcion_camarero(){
 	MPI_Status estado;
 	while (true){
 	
-		if (num_filosofos_mesa < num_filosofos){
+		if (num_filosofos_mesa < (num_filosofos - 1 )){
 			etiq_valor = MPI_ANY_TAG;
 		}else{
 			etiq_valor = etiq_levantarse;
@@ -90,21 +90,21 @@ void funcion_filosofos( int id )
     MPI_Recv(&valor, 1, MPI_INT, id_camarero, etiq_sentarse, MPI_COMM_WORLD, &estado);
     cout <<"Camarero sento al filosofo " <<id << " en la mesa." <<endl;
      
-    cout <<"Filósofo " <<id << " solicita ten. izq." <<id_ten_izq <<endl;
+    //cout <<"Filósofo " <<id << " solicita ten. izq." <<id_ten_izq <<endl;
     MPI_Ssend( &valor, 1, MPI_INT, id_ten_izq, 0, MPI_COMM_WORLD);
 
-    cout <<"Filósofo " <<id <<" solicita ten. der." <<id_ten_der <<endl;
+    //cout <<"Filósofo " <<id <<" solicita ten. der." <<id_ten_der <<endl;
     // ... solicitar tenedor derecho (completar)
     MPI_Ssend( &valor, 1, MPI_INT, id_ten_der, 0, MPI_COMM_WORLD);
 
-    cout <<"Filósofo " <<id <<" comienza a comer" <<endl ;
+    //cout <<"Filósofo " <<id <<" comienza a comer" <<endl ;
     sleep_for( milliseconds( aleatorio<1000,10000>() ) );
 
-    cout <<"Filósofo " <<id <<" suelta ten. izq. " <<id_ten_izq <<endl;
+    //cout <<"Filósofo " <<id <<" suelta ten. izq. " <<id_ten_izq <<endl;
     // ... soltar el tenedor izquierdo (completar)
     MPI_Ssend( &valor, 1, MPI_INT, id_ten_izq, 0, MPI_COMM_WORLD);
 
-    cout<< "Filósofo " <<id <<" suelta ten. der. " <<id_ten_der <<endl;
+    //cout<< "Filósofo " <<id <<" suelta ten. der. " <<id_ten_der <<endl;
     // ... soltar el tenedor derecho (completar)
     MPI_Ssend( &valor, 1, MPI_INT, id_ten_der, 0, MPI_COMM_WORLD);
     
@@ -112,7 +112,7 @@ void funcion_filosofos( int id )
     MPI_Ssend( &valor, 1, MPI_INT, id_camarero, etiq_levantarse, MPI_COMM_WORLD);
     cout <<"Camarero levanto al filosofo " <<id << " de la mesa." <<endl;
     
-    cout << "Filosofo " << id << " comienza a pensar" << endl;
+    //cout << "Filosofo " << id << " comienza a pensar" << endl;
     sleep_for( milliseconds( aleatorio<1000,10000>() ) );
  }
 }
@@ -128,12 +128,12 @@ void funcion_tenedores( int id )
      // ...... guardar en 'id_filosofo' el id. del emisor (completar)
      MPI_Recv( &valor, 1, MPI_INT, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, &estado);
      id_filosofo = estado.MPI_SOURCE;
-     cout <<"Ten. " <<id <<" ha sido cogido por filo. " <<id_filosofo <<endl;
+     //cout <<"Ten. " <<id <<" ha sido cogido por filo. " <<id_filosofo <<endl;
      
 
      // ...... recibir liberación de filósofo 'id_filosofo' (completar)
      MPI_Recv( &valor, 1, MPI_INT, id_filosofo, 0, MPI_COMM_WORLD, &estado);
-     cout <<"Ten. "<< id<< " ha sido liberado por filo. " <<id_filosofo <<endl ;
+     //cout <<"Ten. "<< id<< " ha sido liberado por filo. " <<id_filosofo <<endl ;
   }
 }
 // ---------------------------------------------------------------------
